@@ -10,6 +10,9 @@ return {
 				null_ls.builtins.formatting.prettierd,
 				null_ls.builtins.formatting.prismaFmt,
 				null_ls.builtins.diagnostics.eslint_d,
+				null_ls.builtins.formatting.gofumpt,
+				null_ls.builtins.formatting.goimports_reviser,
+				null_ls.builtins.formatting.rustfmt,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
