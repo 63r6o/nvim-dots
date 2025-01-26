@@ -28,7 +28,7 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local typescript_path = vim.fn.system("npm root -g"):gsub("\n", "") .. "/typescript/lib"
+			-- local typescript_path = vim.fn.system("npm root -g"):gsub("\n", "") .. "/typescript/lib"
 
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
@@ -36,6 +36,17 @@ return {
 			})
 			lspconfig.tsserver.setup({
 				capabilities = capabilities,
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vim.fn.stdpath("data")
+								.. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+							languages = { "vue" },
+						},
+					},
+				},
 			})
 			lspconfig.prismals.setup({
 				capabilities = capabilities,
@@ -54,14 +65,6 @@ return {
 			})
 			lspconfig.volar.setup({
 				capabilities = capabilities,
-				init_options = {
-					typescript = {
-						tsdk = typescript_path,
-					},
-					vue = {
-						hybridMode = false,
-					},
-				},
 			})
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
